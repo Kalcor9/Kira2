@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт с Изображением и Музыкой по Клику</title>
+    <style>
+        /* Стили для центрирования и заполнения всего экрана */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; 
+            cursor: pointer; /* Показываем, что на страницу можно кликать */
+        }
+        img {
+            /* Гарантирует, что изображение занимает максимально возможное пространство */
+            max-width: 100vw; 
+            max-height: 100vh;
+            width: auto;
+            height: auto;
+            display: block; 
+        }
+    </style>
+</head>
+<body onclick="startPlayback()">
+    <img src="https://www.dropbox.com/scl/fi/z3sifk4wic10ia4jo7qg8/IMG_20251121_101340.png?rlkey=tbo6cuqgh25aq2j1icmjrmfrs&st=qzqpemp3&dl=1" alt="Полноразмерное изображение">
+    
+    <audio id="audio-player" loop>
+        <source src="https://www.dropbox.com/scl/fi/khnrhgc99m3nwswxxf90k/bobuliatsiia.mp3?rlkey=urvac1iykry0gfyqqkexymfjw&st=v4i583ov&dl=1" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио элемент.
+    </audio>
+
+    <script>
+        // Флаг, чтобы музыка не запускалась несколько раз
+        let isPlaying = false; 
+
+        function startPlayback() {
+            if (isPlaying) {
+                return; // Если уже играет, ничего не делаем
+            }
+            
+            const audio = document.getElementById('audio-player');
+            
+            // Пытаемся запустить музыку
+            audio.play().then(() => {
+                isPlaying = true; // Успешно: устанавливаем флаг
+                console.log("Музыка успешно запущена.");
+            }).catch(error => {
+                // Если возникла ошибка (например, файл не загружен), 
+                // можно обработать, но основной механизм запуска сработает.
+                console.error("Не удалось запустить воспроизведение:", error);
+            });
+        }
+    </script>
+</body>
+</html>
